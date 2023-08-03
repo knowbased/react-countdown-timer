@@ -1,6 +1,7 @@
 import { vstack } from '@styled-system/patterns';
-import Header from '@components/header/header';
-import Footer from '@components/footer/footer';
+import Header from '@/components/header/header';
+import Footer from '@/components/footer/footer';
+import CountdownTimer from '@components/countdownTimer/countdownTimer';
 import './panda.css';
 
 function App() {
@@ -9,6 +10,7 @@ function App() {
   return (
     <div
       className={vstack({
+        justify: 'space-between',
         minHeight: '100vh',
         backgroundImage: `url(${backgroundImage})`,
         backgroundSize: 'cover',
@@ -16,6 +18,7 @@ function App() {
       })}
     >
       <Header />
+      <CountdownTimer time={3 * 24 * 60 * 60 * 1000} />
       <Footer />
     </div>
   );

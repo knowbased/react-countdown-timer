@@ -12,7 +12,7 @@ function Footer() {
       })}
     >
       <a
-        className={css({ color: 'white', fontSize: 'xs' })}
+        className={css({ color: 'primary', fontSize: 'xs' })}
         href="https://www.freepik.com/free-ai-image/cartoon-lofi-young-manga-style-girl-studying-while-listening-music-raining-street-ai-generative_43227423.htm#query=lofi&position=2&from_view=keyword&track=sph"
       >
         Image By chandlervid85

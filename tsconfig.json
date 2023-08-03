@@ -26,9 +26,10 @@
       "@/*": ["src/*"],
       "@components/*": ["src/components/*"],
       "@assets/*": ["src/assets/*"],
-      "@styled-system/*": ["./styled-system/*"]
+      "@styled-system/*": ["./styled-system/*"],
+      "@hooks/*": ["./src/hooks/*"]
     }
   },
-  "include": ["src"],
+  "include": ["src", "theme"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

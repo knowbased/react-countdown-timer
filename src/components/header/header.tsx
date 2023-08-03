@@ -1,4 +1,5 @@
 import { flex } from '@styled-system/patterns';
+import { css } from '@styled-system/css';
 
 function Header() {
   return (
@@ -9,13 +10,12 @@ function Header() {
         width: '90%',
         marginTop: '8',
         padding: '6',
-        color: 'white',
         fontSize: '2xl',
         fontWeight: 'bold',
       })}
     >
-      <span>Countdown Timer</span>
-      <span>mute</span>
+      <span className={css({ color: 'primary' })}>Countdown Timer</span>
+      <span className={css({ color: 'secondary' })}>mute</span>
     </header>
   );
 }
