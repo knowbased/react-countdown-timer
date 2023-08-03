@@ -1,6 +1,6 @@
-import { vstack } from '../styled-system/patterns';
-import Header from './components/header/header';
-import Footer from './components/footer/footer';
+import { vstack } from '@styled-system/patterns';
+import Header from '@components/header/header';
+import Footer from '@components/footer/footer';
 import './panda.css';
 
 function App() {

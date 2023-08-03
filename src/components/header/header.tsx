@@ -1,4 +1,4 @@
-import { flex } from '../../../styled-system/patterns';
+import { flex } from '@styled-system/patterns';
 
 function Header() {
   return (
