@@ -18,7 +18,7 @@ function App() {
       })}
     >
       <Header />
-      <CountdownTimer time={3 * 24 * 60 * 60 * 1000} />
+      <CountdownTimer initialTime={0} />
       <Footer />
     </div>
   );
