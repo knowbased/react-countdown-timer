@@ -1,14 +1,14 @@
+import { getTimeUnits } from '@/utils/getTimeUnits';
 import DateTimeDisplay from './dateTimeDisplay';
 import { hstack } from '@styled-system/patterns';
 
 interface ShowCounterProps {
-  days: number;
-  hours: number;
-  minutes: number;
-  seconds: number;
+  time: number;
 }
 
-const ShowCounter = ({ days, hours, minutes, seconds }: ShowCounterProps) => {
+const ShowCounter = ({ time }: ShowCounterProps) => {
+  const [days, hours, minutes, seconds] = getTimeUnits(time);
+
   return (
     <div className={hstack({ gap: 10, color: 'primary', fontSize: '2xl' })}>
       <DateTimeDisplay value={days} type="Days" />

@@ -1,5 +1,5 @@
 import { useCountdown } from '@/hooks/useCountdown';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import ShowCounter from './showCounter';
 import TimerForm from './timerForm';
 
@@ -11,14 +11,26 @@ const CountdownTimer = ({ initialTime = 0 }: CountdownTimerProps) => {
   const [time, setTime] = useState(initialTime);
   const [timerStarted, setTimerStarted] = useState(false);
 
-  const [days, hours, minutes, seconds] = useCountdown(time);
+  const newTime = useCountdown(time);
+
+  useEffect(() => {
+    setTime(newTime);
+  }, [newTime]);
+
+  const showResetButton = time > 0;
+
+  const resetTimer = () => {
+    setTime(initialTime);
+    setTimerStarted(false);
+  };
 
   return (
     <div>
       {timerStarted ? (
         <>
-          <ShowCounter days={days} hours={hours} minutes={minutes} seconds={seconds} />
+          <ShowCounter time={time} />
           <button onClick={() => setTimerStarted(false)}>Stop Timer</button>
+          {showResetButton && <button onClick={resetTimer}>Reset Timer</button>}
         </>
       ) : (
         <>

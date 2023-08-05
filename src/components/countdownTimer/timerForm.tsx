@@ -1,3 +1,4 @@
+import { getTimeUnits } from '@/utils/getTimeUnits';
 import { useState, useEffect } from 'react';
 
 interface TimerFormProps {
@@ -6,14 +7,21 @@ interface TimerFormProps {
 }
 
 const TimerForm = ({ time, onUpdate }: TimerFormProps) => {
-  const [days, setDays] = useState(Math.floor(time / (1000 * 60 * 60 * 24)));
-  const [hours, setHours] = useState(Math.floor((time % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)));
-  const [minutes, setMinutes] = useState(Math.floor((time % (1000 * 60 * 60)) / (1000 * 60)));
-  const [seconds, setSeconds] = useState(Math.floor((time % (1000 * 60)) / 1000));
+  const [days, setDays] = useState(0);
+  const [hours, setHours] = useState(0);
+  const [minutes, setMinutes] = useState(0);
+  const [seconds, setSeconds] = useState(0);
+
+  useEffect(() => {
+    const [newDays, newHours, newMinutes, newSeconds] = getTimeUnits(time);
+    setDays(newDays);
+    setHours(newHours);
+    setMinutes(newMinutes);
+    setSeconds(newSeconds);
+  }, []);
 
   useEffect(() => {
     const newTime = (days * 24 * 60 * 60 + hours * 60 * 60 + minutes * 60 + seconds) * 1000;
-    console.log(newTime);
     onUpdate(newTime);
   }, [days, hours, minutes, seconds, onUpdate]);
 
