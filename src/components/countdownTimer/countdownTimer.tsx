@@ -2,6 +2,7 @@ import { useCountdown } from '@/hooks/useCountdown';
 import { useEffect, useState } from 'react';
 import ShowCounter from './showCounter';
 import TimerForm from './timerForm';
+import { hstack, vstack } from '@styled-system/patterns';
 
 interface CountdownTimerProps {
   initialTime?: number;
@@ -25,18 +26,20 @@ const CountdownTimer = ({ initialTime = 0 }: CountdownTimerProps) => {
   };
 
   return (
-    <div>
+    <div className={vstack({ gap: '8' })}>
       {timerStarted ? (
         <>
           <ShowCounter time={time} />
-          <button onClick={() => setTimerStarted(false)}>Stop Timer</button>
-          {showResetButton && <button onClick={resetTimer}>Reset Timer</button>}
+          <div className={hstack({ justify: 'space-around', width: '100%' })}>
+            <button onClick={() => setTimerStarted(false)}>Stop Timer</button>
+            {showResetButton && <button onClick={resetTimer}>Reset Timer</button>}
+          </div>
         </>
       ) : (
-        <>
+        <div className={vstack({ gap: '8' })}>
           <TimerForm time={time} onUpdate={setTime} />
           <button onClick={() => setTimerStarted(true)}>Start Timer</button>
-        </>
+        </div>
       )}
     </div>
   );

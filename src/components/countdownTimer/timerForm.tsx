@@ -1,5 +1,7 @@
 import { getTimeUnits } from '@/utils/getTimeUnits';
+import { hstack } from '@styled-system/patterns';
 import { useState, useEffect } from 'react';
+import TimeInput from './timeInput';
 
 interface TimerFormProps {
   time: number;
@@ -26,31 +28,14 @@ const TimerForm = ({ time, onUpdate }: TimerFormProps) => {
   }, [days, hours, minutes, seconds, onUpdate]);
 
   return (
-    <div>
-      <div>
-        <label>Days:</label>
-        <input type="number" value={days} onChange={(e) => setDays(parseInt(e.target.value))} />
-      </div>
-      <div>
-        <label>Hours:</label>
-        <input type="number" value={hours} onChange={(e) => setHours(parseInt(e.target.value))} />
-      </div>
-      <div>
-        <label>Minutes:</label>
-        <input
-          type="number"
-          value={minutes}
-          onChange={(e) => setMinutes(parseInt(e.target.value))}
-        />
-      </div>
-      <div>
-        <label>Seconds:</label>
-        <input
-          type="number"
-          value={seconds}
-          onChange={(e) => setSeconds(parseInt(e.target.value))}
-        />
-      </div>
+    <div className={hstack({ gap: 10, color: 'primary', fontSize: '2xl' })}>
+      <TimeInput label="Days" value={days} onChange={setDays} />
+      :
+      <TimeInput label="Hours" value={hours} onChange={setHours} />
+      :
+      <TimeInput label="Minutes" value={minutes} onChange={setMinutes} />
+      :
+      <TimeInput label="Seconds" value={seconds} onChange={setSeconds} />
     </div>
   );
 };

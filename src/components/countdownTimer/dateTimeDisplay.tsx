@@ -19,6 +19,7 @@ const DateTimeDisplay = ({ value, type }: DateTimeDisplayProps) => {
           fontWeight: 'bold',
           minWidth: '150px',
           textAlign: 'center',
+          padding: '8px',
         })}
       >
         {value}
