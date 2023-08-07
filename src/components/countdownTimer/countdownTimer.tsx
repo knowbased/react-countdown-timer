@@ -1,8 +1,11 @@
-import { useCountdown } from '@/hooks/useCountdown';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { hstack, vstack } from '@styled-system/patterns';
+
 import ShowCounter from './showCounter';
 import TimerForm from './timerForm';
-import { hstack, vstack } from '@styled-system/patterns';
+
+import { useCountdown } from '@/hooks/useCountdown';
+import alarmSound from '@assets/IPhone “Radar” alarm sound effect.mp3';
 
 interface CountdownTimerProps {
   initialTime?: number;
@@ -17,6 +20,20 @@ const CountdownTimer = ({ initialTime = 0 }: CountdownTimerProps) => {
   useEffect(() => {
     setTime(newTime);
   }, [newTime]);
+
+  useEffect(() => {
+    if (newTime === 0 && timerStarted) {
+      audioRef.current.play();
+      audioRef.current.loop = true;
+    }
+
+    if (!timerStarted) {
+      audioRef.current.pause();
+      audioRef.current.currentTime = 0;
+    }
+  }, [time, timerStarted]);
+
+  const audioRef = useRef(new Audio(alarmSound));
 
   const showResetButton = time > 0;
 
