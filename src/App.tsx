@@ -4,7 +4,10 @@ import Footer from '@/components/footer/footer';
 import CountdownTimer from '@components/countdownTimer/countdownTimer';
 import './panda.css';
 
+import { useToggle } from 'react-use';
+
 function App() {
+  const [isMuted, toggleIsMuted] = useToggle(false);
   const backgroundImage = './assets/background-image-lofi-girl.jpg';
 
   return (
@@ -17,8 +20,8 @@ function App() {
         backgroundPosition: 'center',
       })}
     >
-      <Header />
-      <CountdownTimer initialTime={0} />
+      <Header isMuted={isMuted} onMuteToggle={toggleIsMuted} />
+      <CountdownTimer initialTime={0} isMuted={isMuted} />
       <Footer />
     </div>
   );

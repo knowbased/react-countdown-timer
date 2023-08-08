@@ -1,7 +1,12 @@
 import { flex } from '@styled-system/patterns';
 import { css } from '@styled-system/css';
 
-function Header() {
+interface HeaderProps {
+  isMuted: boolean;
+  onMuteToggle: () => void;
+}
+
+function Header({ isMuted = false, onMuteToggle }: HeaderProps) {
   return (
     <header
       className={flex({
@@ -15,7 +20,9 @@ function Header() {
       })}
     >
       <span className={css({ color: 'primary' })}>Countdown Timer</span>
-      <span className={css({ color: 'secondary' })}>mute</span>
+      <button className={css({ color: 'secondary' })} onClick={onMuteToggle}>
+        {isMuted ? 'Unmute' : 'Mute'}
+      </button>
     </header>
   );
 }
