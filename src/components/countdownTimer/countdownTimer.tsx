@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { hstack, vstack } from '@styled-system/patterns';
+import { button } from '@styled-system/recipes';
 
 import { useAudio } from 'react-use';
 
@@ -27,9 +28,9 @@ const CountdownTimer = ({ initialTime = 0, isMuted = false }: CountdownTimerProp
   // AUDIO
   useEffect(() => {
     if (isMuted) {
-      controls.mute;
+      controls.mute();
     } else {
-      controls.unmute;
+      controls.unmute();
     }
 
     if (time === 0 && timerStarted) {
@@ -51,14 +52,22 @@ const CountdownTimer = ({ initialTime = 0, isMuted = false }: CountdownTimerProp
         <>
           <ShowCounter time={time} />
           <div className={hstack({ justify: 'space-around', width: '100%' })}>
-            <button onClick={stopTimer}>Stop Timer</button>
-            {showResetButton && <button onClick={resetTimer}>Reset Timer</button>}
+            <button className={button({ size: 'lg' })} onClick={stopTimer}>
+              Stop Timer
+            </button>
+            {showResetButton && (
+              <button className={button({ size: 'lg' })} onClick={resetTimer}>
+                Reset Timer
+              </button>
+            )}
           </div>
         </>
       ) : (
         <div className={vstack({ gap: '8' })}>
           <TimerForm time={time} onUpdate={setTime} />
-          <button onClick={startTimer}>Start Timer</button>
+          <button className={button({ size: 'lg' })} onClick={startTimer}>
+            Start Timer
+          </button>
         </div>
       )}
     </div>

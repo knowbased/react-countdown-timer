@@ -1,7 +1,9 @@
 import { vstack } from '@styled-system/patterns';
+
 import Header from '@/components/header/header';
 import Footer from '@/components/footer/footer';
 import CountdownTimer from '@components/countdownTimer/countdownTimer';
+
 import './panda.css';
 
 import { useToggle } from 'react-use';

@@ -1,5 +1,6 @@
 import { defineConfig } from '@pandacss/dev';
 import { tokens } from './theme/tokens';
+import { recipes } from './theme/recipes';
 
 export default defineConfig({
   // Whether to use css reset
@@ -13,7 +14,7 @@ export default defineConfig({
 
   // Useful for theme customization
   theme: {
-    extend: { tokens },
+    extend: { tokens, recipes },
   },
 
   // The output directory for your css system

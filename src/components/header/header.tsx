@@ -1,5 +1,8 @@
 import { flex } from '@styled-system/patterns';
 import { css } from '@styled-system/css';
+import { button } from '@styled-system/recipes';
+
+import { Volume2, VolumeX } from 'lucide-react';
 
 interface HeaderProps {
   isMuted: boolean;
@@ -20,8 +23,8 @@ function Header({ isMuted = false, onMuteToggle }: HeaderProps) {
       })}
     >
       <span className={css({ color: 'primary' })}>Countdown Timer</span>
-      <button className={css({ color: 'secondary' })} onClick={onMuteToggle}>
-        {isMuted ? 'Unmute' : 'Mute'}
+      <button className={button({ visual: 'transparent' })} onClick={onMuteToggle}>
+        {isMuted ? <VolumeX size={36} /> : <Volume2 size={36} />}
       </button>
     </header>
   );
