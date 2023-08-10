@@ -8,13 +8,22 @@ interface TimeInputProps {
 }
 
 const TimeInput = ({ label, value, onChange }: TimeInputProps) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const inputValue = parseInt(e.target.value);
+    if (!isNaN(inputValue) && inputValue >= 0 && inputValue <= 99) {
+      onChange(inputValue);
+    }
+  };
+
   return (
     <div className={vstack({ padding: 4 })}>
       <label className={css({ color: 'secondary', fontSize: '2lg' })}>{label}</label>
       <input
         type="number"
         value={value}
-        onChange={(e) => onChange(parseInt(e.target.value))}
+        onChange={handleInputChange}
+        min={0}
+        max={99}
         className={css({
           backgroundColor: 'transparent',
           color: 'primary',
