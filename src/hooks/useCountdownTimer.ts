@@ -12,7 +12,9 @@ function useCountdownTimer(initialTime = 0) {
   }, [newTime]);
 
   const startTimer = () => {
-    setTimerStarted(true);
+    if (time > 0) {
+      setTimerStarted(true);
+    }
   };
 
   const stopTimer = () => {
