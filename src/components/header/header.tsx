@@ -15,6 +15,7 @@ function Header({ isMuted = false, onMuteToggle }: HeaderProps) {
       className={flex({
         direction: 'row',
         justify: 'space-between',
+        alignItems: 'center',
         width: '90%',
         marginTop: '8',
         padding: '6',
