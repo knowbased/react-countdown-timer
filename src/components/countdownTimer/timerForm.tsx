@@ -2,6 +2,9 @@ import { getTimeUnits } from '@/utils/getTimeUnits';
 import { hstack } from '@styled-system/patterns';
 import { useState, useEffect } from 'react';
 import TimeInput from './timeInput';
+import { css } from '@styled-system/css';
+
+const colonStyle = css({ fontWeight: 'bold', fontSize: '5xl', alignSelf: 'end', mb: '16' });
 
 interface TimerFormProps {
   time: number;
@@ -30,11 +33,11 @@ const TimerForm = ({ time, onUpdate }: TimerFormProps) => {
   return (
     <div className={hstack({ gap: 10, color: 'primary', fontSize: '2xl' })}>
       <TimeInput label="Days" value={days} onChange={setDays} />
-      :
+      <span className={colonStyle}>:</span>
       <TimeInput label="Hours" value={hours} onChange={setHours} />
-      :
+      <span className={colonStyle}>:</span>
       <TimeInput label="Minutes" value={minutes} onChange={setMinutes} />
-      :
+      <span className={colonStyle}>:</span>
       <TimeInput label="Seconds" value={seconds} onChange={setSeconds} />
     </div>
   );
