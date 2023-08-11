@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { hstack, vstack } from '@styled-system/patterns';
+import { vstack, wrap } from '@styled-system/patterns';
 import { button } from '@styled-system/recipes';
 
 import { useAudio } from 'react-use';
@@ -51,7 +51,7 @@ const CountdownTimer = ({ initialTime = 0, isMuted = false }: CountdownTimerProp
       {timerStarted ? (
         <>
           <ShowCounter time={time} />
-          <div className={hstack({ justify: 'space-around', width: '100%' })}>
+          <div className={wrap({ justify: 'space-around', gap: '8', width: '100%' })}>
             <button className={button({ size: 'lg' })} onClick={stopTimer}>
               Stop Timer
             </button>

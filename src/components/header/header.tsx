@@ -19,7 +19,7 @@ function Header({ isMuted = false, onMuteToggle }: HeaderProps) {
         width: '90%',
         marginTop: '8',
         padding: '6',
-        fontSize: '2xl',
+        fontSize: { base: 'md', lg: '2xl' },
         fontWeight: 'bold',
       })}
     >

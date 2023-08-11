@@ -34,8 +34,7 @@ const TimeInput = ({ label, value, onChange }: TimeInputProps) => {
           borderWidth: '2px',
           borderColor: 'secondary',
           borderRadius: 'md',
-          padding: '8px',
-          paddingLeft: '10px',
+          padding: { base: '1', lg: '2' },
           appearance: 'none', // Disable default browser styles
         })}
       />
