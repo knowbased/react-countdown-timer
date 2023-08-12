@@ -6,7 +6,6 @@ export const buttonRecipe = defineRecipe({
   base: {
     cursor: 'pointer',
     color: 'black',
-    width: '180px',
     padding: '0.6em 1.2em',
     border: '1px solid transparent',
     transition: 'border-color 0.25s',
@@ -15,7 +14,7 @@ export const buttonRecipe = defineRecipe({
   },
   variants: {
     visual: {
-      primary: { backgroundColor: 'primary' },
+      primary: { backgroundColor: 'primary', width: '180px' },
       transparent: { backgroundColor: 'transparent', color: 'secondary' },
     },
     size: {
