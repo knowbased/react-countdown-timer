@@ -43,6 +43,25 @@ const CountdownTimer = ({ initialTime = 0, isMuted = false }: CountdownTimerProp
     }
   }, [time, timerStarted, isMuted]);
 
+  // NOTIFICATIONS
+  useEffect(() => {
+    if (time === 0 && timerStarted) {
+      if (Notification.permission === 'granted') {
+        const notification = new Notification('Countdown Timer', {
+          body: 'Timer has ended!',
+        });
+
+        notification.onclick = () => {
+          stopTimer();
+          notification.close();
+          window.focus();
+        };
+      } else if (Notification.permission === 'default') {
+        Notification.requestPermission();
+      }
+    }
+  }, [time, timerStarted]);
+
   const showResetButton = time > 0;
 
   return (
