@@ -10,7 +10,7 @@ import { useToggle } from 'react-use';
 
 function App() {
   const [isMuted, toggleIsMuted] = useToggle(false);
-  const backgroundImage = './assets/background-image-lofi-girl.jpg';
+  const backgroundImage = './assets/background-image-lofi-girl.webp';
 
   return (
     <div
