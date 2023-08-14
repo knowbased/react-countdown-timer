@@ -24,7 +24,12 @@ function Header({ isMuted = false, onMuteToggle }: HeaderProps) {
       })}
     >
       <span className={css({ color: 'primary' })}>Countdown Timer</span>
-      <button className={button({ visual: 'transparent' })} onClick={onMuteToggle}>
+      <button
+        name="mute"
+        className={button({ visual: 'transparent' })}
+        onClick={onMuteToggle}
+        aria-label={isMuted ? 'Unmute' : 'Mute'}
+      >
         {isMuted ? <VolumeX size={36} /> : <Volume2 size={36} />}
       </button>
     </header>

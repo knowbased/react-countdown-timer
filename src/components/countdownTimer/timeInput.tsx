@@ -17,11 +17,14 @@ const TimeInput = ({ label, value, onChange }: TimeInputProps) => {
 
   return (
     <div className={vstack({ padding: 4 })}>
-      <label className={css({ color: 'secondary', fontSize: '2lg' })}>{label}</label>
+      <label htmlFor={label} className={css({ color: 'secondary', fontSize: '2lg' })}>
+        {label}
+      </label>
       <input
         type="number"
         value={value}
         onChange={handleInputChange}
+        id={label}
         min={0}
         max={99}
         className={css({
@@ -35,7 +38,7 @@ const TimeInput = ({ label, value, onChange }: TimeInputProps) => {
           borderColor: 'secondary',
           borderRadius: 'md',
           padding: { base: '1', lg: '2' },
-          appearance: 'none', // Disable default browser styles
+          appearance: 'none',
         })}
       />
     </div>
