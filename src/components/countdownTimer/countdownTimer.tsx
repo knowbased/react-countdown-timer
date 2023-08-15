@@ -46,6 +46,8 @@ const CountdownTimer = ({ initialTime = 0, isMuted = false }: CountdownTimerProp
   // NOTIFICATIONS
   useEffect(() => {
     if (time === 0 && timerStarted) {
+      if (!('Notification' in window)) return;
+
       if (Notification.permission === 'granted') {
         const notification = new Notification('Countdown Timer', {
           body: 'Timer has ended!',
