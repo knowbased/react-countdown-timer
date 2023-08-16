@@ -22,7 +22,7 @@ const TimeInput = ({ label, value, onChange }: TimeInputProps) => {
       </label>
       <input
         type="number"
-        value={value}
+        placeholder={value.toString()}
         onChange={handleInputChange}
         id={label}
         min={0}
