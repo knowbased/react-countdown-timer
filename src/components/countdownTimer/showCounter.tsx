@@ -1,4 +1,3 @@
-import { getTimeUnits } from '@/utils/getTimeUnits';
 import DateTimeDisplay from './dateTimeDisplay';
 import { wrap } from '@styled-system/patterns';
 import { css } from '@styled-system/css';
