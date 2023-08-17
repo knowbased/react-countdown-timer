@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { vstack, wrap } from '@styled-system/patterns';
 import { button } from '@styled-system/recipes';
 
-import { useAudio, useBoolean, useLockBodyScroll, useToggle } from 'react-use';
+import { useAudio } from 'react-use';
 
 import ShowCounter from './showCounter';
 import TimerForm from './timerForm';
