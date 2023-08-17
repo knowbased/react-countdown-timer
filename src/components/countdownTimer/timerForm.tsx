@@ -14,28 +14,25 @@ const colonStyle = css({
 });
 
 interface TimerFormProps {
-  time: number;
+  timeUnits: [number, number, number, number];
   onUpdate: (newTime: number) => void;
 }
 
-const TimerForm = ({ time, onUpdate }: TimerFormProps) => {
-  const [days, setDays] = useState(0);
-  const [hours, setHours] = useState(0);
-  const [minutes, setMinutes] = useState(0);
-  const [seconds, setSeconds] = useState(0);
+const TimerForm = ({ timeUnits, onUpdate }: TimerFormProps) => {
+  const [days, hours, minutes, seconds] = timeUnits;
 
-  useEffect(() => {
-    const [newDays, newHours, newMinutes, newSeconds] = getTimeUnits(time);
-    setDays(newDays);
-    setHours(newHours);
-    setMinutes(newMinutes);
-    setSeconds(newSeconds);
-  }, []);
+  const handleChange = (index: number, newValue: number) => {
+    const updatedTimeUnits = [...timeUnits];
+    updatedTimeUnits[index] = newValue;
 
-  useEffect(() => {
-    const newTime = (days * 24 * 60 * 60 + hours * 60 * 60 + minutes * 60 + seconds) * 1000;
-    onUpdate(newTime);
-  }, [days, hours, minutes, seconds, onUpdate]);
+    const [days, hours, minutes, seconds] = updatedTimeUnits;
+
+    // Convert time units to milliseconds
+    const totalMilliseconds =
+      days * 24 * 60 * 60 * 1000 + hours * 60 * 60 * 1000 + minutes * 60 * 1000 + seconds * 1000;
+
+    onUpdate(totalMilliseconds);
+  };
 
   return (
     <div
@@ -47,13 +44,21 @@ const TimerForm = ({ time, onUpdate }: TimerFormProps) => {
         fontSize: '2xl',
       })}
     >
-      <TimeInput label="Days" value={days} onChange={setDays} />
+      <TimeInput label="Days" value={days} onChange={(newValue) => handleChange(0, newValue)} />
       <span className={colonStyle}>:</span>
-      <TimeInput label="Hours" value={hours} onChange={setHours} />
+      <TimeInput label="Hours" value={hours} onChange={(newValue) => handleChange(1, newValue)} />
       <span className={colonStyle}>:</span>
-      <TimeInput label="Minutes" value={minutes} onChange={setMinutes} />
+      <TimeInput
+        label="Minutes"
+        value={minutes}
+        onChange={(newValue) => handleChange(2, newValue)}
+      />
       <span className={colonStyle}>:</span>
-      <TimeInput label="Seconds" value={seconds} onChange={setSeconds} />
+      <TimeInput
+        label="Seconds"
+        value={seconds}
+        onChange={(newValue) => handleChange(3, newValue)}
+      />
     </div>
   );
 };

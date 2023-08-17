@@ -10,6 +10,7 @@ import TimerForm from './timerForm';
 import useCountdownTimer from '@/hooks/useCountdownTimer';
 import alarmSound from '@assets/IPhone “Radar” alarm sound effect.mp3';
 import { showNotification } from '@/utils/showNotification';
+import { getTimeUnits } from '@/utils/getTimeUnits';
 
 interface CountdownTimerProps {
   initialTime?: number;
@@ -19,6 +20,8 @@ interface CountdownTimerProps {
 const CountdownTimer = ({ initialTime = 0, isMuted = false }: CountdownTimerProps) => {
   const { time, isRunning, startTimer, stopTimer, resetTimer, updateTime } =
     useCountdownTimer(initialTime);
+
+  const timeUnits = getTimeUnits(time);
 
   const [audio, state, controls] = useAudio({
     src: alarmSound,
@@ -39,7 +42,7 @@ const CountdownTimer = ({ initialTime = 0, isMuted = false }: CountdownTimerProp
         handleStopTimer,
       );
     }
-  }, [timerEnded, controls]);
+  }, [timerEnded]);
 
   const handleStopTimer = () => {
     stopTimer();
@@ -60,7 +63,7 @@ const CountdownTimer = ({ initialTime = 0, isMuted = false }: CountdownTimerProp
       {audio}
       {isRunning ? (
         <>
-          <ShowCounter time={time} />
+          <ShowCounter timeUnits={timeUnits} />
           <div className={wrap({ justify: 'space-around', gap: '8', width: '100%' })}>
             <button className={button({ size: 'lg' })} onClick={handleStopTimer}>
               Stop Timer
@@ -74,7 +77,7 @@ const CountdownTimer = ({ initialTime = 0, isMuted = false }: CountdownTimerProp
         </>
       ) : (
         <div className={vstack({ gap: '8' })}>
-          <TimerForm time={time} onUpdate={updateTime} />
+          <TimerForm timeUnits={timeUnits} onUpdate={updateTime} />
           <button className={button({ size: 'lg' })} onClick={startTimer}>
             Start Timer
           </button>

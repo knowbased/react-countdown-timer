@@ -13,11 +13,11 @@ const colonStyle = css({
 });
 
 interface ShowCounterProps {
-  time: number;
+  timeUnits: [number, number, number, number];
 }
 
-const ShowCounter = ({ time }: ShowCounterProps) => {
-  const [days, hours, minutes, seconds] = getTimeUnits(time);
+const ShowCounter = ({ timeUnits }: ShowCounterProps) => {
+  const [days, hours, minutes, seconds] = timeUnits;
 
   return (
     <div

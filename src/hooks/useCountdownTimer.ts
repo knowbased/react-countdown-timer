@@ -20,7 +20,7 @@ function useCountdownTimer(initialTime = 0) {
 
   const resetTimer = () => {
     setTime(initialTime);
-    toggleIsRunning(true);
+    toggleIsRunning(false);
   };
 
   const stopTimer = () => {
