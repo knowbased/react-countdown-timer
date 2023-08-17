@@ -1,38 +1,43 @@
-import { useState, useEffect } from 'react';
-import { useCountdown } from './useCountdown';
+import { useState } from 'react';
+import { useBoolean, useInterval } from 'react-use';
 
 function useCountdownTimer(initialTime = 0) {
   const [time, setTime] = useState(initialTime);
-  const [timerStarted, setTimerStarted] = useState(false);
+  const [isRunning, toggleIsRunning] = useBoolean(false);
 
-  const newTime = useCountdown(time);
-
-  useEffect(() => {
-    setTime(newTime);
-  }, [newTime]);
+  useInterval(
+    () => {
+      setTime(Math.max(0, time - 1000));
+    },
+    isRunning ? 1000 : null,
+  );
 
   const startTimer = () => {
     if (time > 0) {
-      setTimerStarted(true);
+      toggleIsRunning(true);
     }
-  };
-
-  const stopTimer = () => {
-    setTimerStarted(false);
   };
 
   const resetTimer = () => {
     setTime(initialTime);
-    setTimerStarted(false);
+    toggleIsRunning(true);
+  };
+
+  const stopTimer = () => {
+    toggleIsRunning(false);
+  };
+
+  const updateTime = (newTime: number) => {
+    setTime(newTime);
   };
 
   return {
     time,
-    setTime,
-    timerStarted,
+    isRunning,
     startTimer,
     stopTimer,
     resetTimer,
+    updateTime,
   };
 }
 

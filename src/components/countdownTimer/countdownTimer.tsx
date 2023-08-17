@@ -2,13 +2,14 @@ import { useEffect } from 'react';
 import { vstack, wrap } from '@styled-system/patterns';
 import { button } from '@styled-system/recipes';
 
-import { useAudio } from 'react-use';
+import { useAudio, useBoolean, useLockBodyScroll, useToggle } from 'react-use';
 
 import ShowCounter from './showCounter';
 import TimerForm from './timerForm';
 
 import useCountdownTimer from '@/hooks/useCountdownTimer';
 import alarmSound from '@assets/IPhone “Radar” alarm sound effect.mp3';
+import { showNotification } from '@/utils/showNotification';
 
 interface CountdownTimerProps {
   initialTime?: number;
@@ -16,7 +17,7 @@ interface CountdownTimerProps {
 }
 
 const CountdownTimer = ({ initialTime = 0, isMuted = false }: CountdownTimerProps) => {
-  const { time, setTime, timerStarted, startTimer, stopTimer, resetTimer } =
+  const { time, isRunning, startTimer, stopTimer, resetTimer, updateTime } =
     useCountdownTimer(initialTime);
 
   const [audio, state, controls] = useAudio({
@@ -25,55 +26,43 @@ const CountdownTimer = ({ initialTime = 0, isMuted = false }: CountdownTimerProp
     loop: true,
   });
 
-  // AUDIO
-  useEffect(() => {
-    if (isMuted) {
-      controls.mute();
-    } else {
-      controls.unmute();
-    }
+  const timerEnded = isRunning && time === 0;
 
-    if (time === 0 && timerStarted) {
+  useEffect(() => {
+    if (timerEnded) {
       controls.play();
-    }
-
-    if (!timerStarted) {
-      controls.pause();
-      state.time = 0;
-    }
-  }, [time, timerStarted, isMuted]);
-
-  // NOTIFICATIONS
-  useEffect(() => {
-    if (time === 0 && timerStarted) {
-      if (!('Notification' in window)) return;
-
-      if (Notification.permission === 'granted') {
-        const notification = new Notification('Countdown Timer', {
+      showNotification(
+        'Countdown Timer',
+        {
           body: 'Timer has ended!',
-        });
-
-        notification.onclick = () => {
-          stopTimer();
-          notification.close();
-          window.focus();
-        };
-      } else if (Notification.permission === 'default') {
-        Notification.requestPermission();
-      }
+        },
+        handleStopTimer,
+      );
     }
-  }, [time, timerStarted]);
+  }, [timerEnded, controls]);
+
+  const handleStopTimer = () => {
+    stopTimer();
+    controls.pause();
+    state.time = 0;
+  };
+
+  if (isMuted) {
+    controls.mute();
+  } else {
+    controls.unmute();
+  }
 
   const showResetButton = time > 0;
 
   return (
     <div className={vstack({ gap: '8' })}>
       {audio}
-      {timerStarted ? (
+      {isRunning ? (
         <>
           <ShowCounter time={time} />
           <div className={wrap({ justify: 'space-around', gap: '8', width: '100%' })}>
-            <button className={button({ size: 'lg' })} onClick={stopTimer}>
+            <button className={button({ size: 'lg' })} onClick={handleStopTimer}>
               Stop Timer
             </button>
             {showResetButton && (
@@ -85,7 +74,7 @@ const CountdownTimer = ({ initialTime = 0, isMuted = false }: CountdownTimerProp
         </>
       ) : (
         <div className={vstack({ gap: '8' })}>
-          <TimerForm time={time} onUpdate={setTime} />
+          <TimerForm time={time} onUpdate={updateTime} />
           <button className={button({ size: 'lg' })} onClick={startTimer}>
             Start Timer
           </button>
